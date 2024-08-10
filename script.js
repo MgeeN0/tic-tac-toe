@@ -5,6 +5,7 @@ let currPlayer = 'x';
 const Gameboard = (function ()
 {
     const infoBox = document.getElementById("info");
+    const alert_box = document.querySelector("#alert");
     let board = [
         ['e','e','e'],
         ['e','e','e'],
@@ -18,10 +19,12 @@ const Gameboard = (function ()
     const process = function() {
         const body = document.querySelector("body");
         const button = document.createElement("div");
+        button.classList.add("button1");
         button.innerHTML = "<button onclick=\"Gameboard.clear()\" class=\"btn\">Reset</button>";
         body.appendChild(button);
         player1 = document.getElementById("player1").value;
         player2 = document.getElementById("player2").value;
+        infoBox.style.cssText="padding: 10px";
         if(currPlayer == 'x')
         {
             infoBox.textContent = `Now it's ${player1}'s turn (X)`;
@@ -116,6 +119,8 @@ const Gameboard = (function ()
     const clear = function()
     {
         infoBox.textContent = "";
+        infoBox.style.cssText="padding: 0";
+        alert_box.style.cssText="padding: 0";
         const alert = document.querySelector(".alert_message");
         const button = document.querySelector(".btn");
         for(let i=0;i<3;i++)
@@ -149,7 +154,8 @@ const Gameboard = (function ()
     }
     const game_result = function(result)
     {
-        const alert_box = document.querySelector("#alert");
+        infoBox.style.cssText="padding: 0";
+        alert_box.style.cssText="padding: 10px";
         const alert_div = document.createElement("div");
         alert_div.classList.add("alert_message");
         if(result)

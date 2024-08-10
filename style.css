@@ -1,3 +1,24 @@
+body {
+    background-color: #eee;
+    color: #333;
+    font-family: arial;
+    font-size: 16px;
+    background-image: url("https://coolbackgrounds.io/images/backgrounds/index/disco-dba865f1.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    }
+#info
+{
+    text-align:center;
+    font-size:25px;
+    font-weight:700;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 0, 0, 0.8);
+    background-color:#ff6969;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
 #game
 {
     display:flex;
@@ -94,4 +115,28 @@
 .btn
 {
     margin-top:10px;
+}
+#player_prompt
+{
+    margin-top: 100px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+#alert
+{
+    margin-top: 20px;
+    max-width: fit-content;
+    font-size:30px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(255, 0, 0, 0.8);
+    background-color:#ff6969;
+}
+.button1
+{
+    max-width: fit-content;
+    font-size:30px;
+    margin-left: auto;
+    margin-right: auto;
 }
