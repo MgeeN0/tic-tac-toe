@@ -1,9 +1,10 @@
-const gameboard = document.querySelector("#board");
+//const gameboard = document.querySelector("#board");
 //console.log(document.querySelector("#board"));
 let currPlayer = 'x';
 
 const Gameboard = (function ()
 {
+    const infoBox = document.getElementById("info");
     let board = [
         ['e','e','e'],
         ['e','e','e'],
@@ -15,8 +16,20 @@ const Gameboard = (function ()
     let player2 = "";
     console.log(board);
     const process = function() {
+        const body = document.querySelector("body");
+        const button = document.createElement("div");
+        button.innerHTML = "<button onclick=\"Gameboard.clear()\" class=\"btn\">Reset</button>";
+        body.appendChild(button);
         player1 = document.getElementById("player1").value;
         player2 = document.getElementById("player2").value;
+        if(currPlayer == 'x')
+        {
+            infoBox.textContent = `Now it's ${player1}'s turn (X)`;
+        }
+        else
+        {
+            infoBox.textContent = `Now it's ${player2}'s turn (O)`;
+        }
         const node = document.querySelector(".prompt");
         if (node.parentNode) {
         node.parentNode.removeChild(node);
@@ -27,8 +40,12 @@ const Gameboard = (function ()
             player1 = "Player 1";
             player2 = "Player 2";
         }
+        const controller = new AbortController();
         for(let i = 0;i<9;i++)
         {
+            const gameboard = document.querySelector(`#board${Math.floor(i/3)}`);
+            //console.log(document.querySelector(`#board${Math.floor(i/3)}`));
+            console.log(`#board${Math.floor(i/3)}`);
             const field = document.createElement("div");
             field.classList.add(`board-item${i}`);
             field.addEventListener("click", function() { 
@@ -43,10 +60,12 @@ const Gameboard = (function ()
                     if(currPlayer == 'x')
                     {
                         currPlayer = 'o';
+                        infoBox.textContent = `Now it's ${player2}'s turn (O)`;
                     }
                     else
                     {
                         currPlayer = 'x';
+                        infoBox.textContent = `Now it's ${player1}'s turn (X)`;
                     }
                     console.log(board);
                     for(let j=0;j<3;j++)
@@ -76,21 +95,29 @@ const Gameboard = (function ()
                     }
                     if(x_win == true)
                     {
+                        infoBox.textContent = "";
+                        controller.abort();
                         game_result(true);
                     }
                     else if(o_win == true)
                     {
+                        infoBox.textContent = "";
+                        controller.abort();
                         game_result(false);
                     }
                 }
-
-            })
+            },
+        {
+            signal: controller.signal
+        });
             gameboard.appendChild(field);
         }
     }
     const clear = function()
     {
+        infoBox.textContent = "";
         const alert = document.querySelector(".alert_message");
+        const button = document.querySelector(".btn");
         for(let i=0;i<3;i++)
         {
             for(let j=0;j<3;j++)
@@ -105,9 +132,16 @@ const Gameboard = (function ()
                 }
             }
         }
-        if(alert.parentNode)
+        if(alert != null)
         {
-            alert.parentNode.removeChild(alert);
+            if(alert.parentNode)
+            {
+                alert.parentNode.removeChild(alert);
+            }
+        }
+        if(button.parentNode)
+        {
+            button.parentNode.removeChild(button);
         }
         x_win = false;
         o_win = false;
